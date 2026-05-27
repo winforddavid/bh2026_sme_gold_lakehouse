@@ -1,0 +1,42 @@
+CREATE TABLE IF NOT EXISTS dim_date (
+    date_key INT PRIMARY KEY,
+    full_date DATE,
+    day_of_week INT,
+    day_name STRING,
+    day_of_month INT,
+    day_of_year INT,
+    week_of_year INT,
+    month INT,
+    month_name STRING,
+    quarter INT,
+    year INT
+);
+ 
+CREATE TABLE IF NOT EXISTS dim_product (
+    product_key INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    product_id STRING,
+    product_name STRING,
+    category STRING,
+    unit_price DECIMAL(10, 2)
+);
+ 
+CREATE TABLE IF NOT EXISTS dim_customer (
+    customer_key INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    customer_id STRING,
+    customer_name STRING,
+    email STRING,
+    address STRING,
+    city STRING,
+    state STRING,
+    zip_code STRING,
+    start_date DATE,
+    end_date DATE,
+    is_current BOOLEAN
+);
+ 
+CREATE TABLE IF NOT EXISTS dim_region (
+    region_key INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    region_id STRING,
+    region_name STRING,
+    country STRING
+);

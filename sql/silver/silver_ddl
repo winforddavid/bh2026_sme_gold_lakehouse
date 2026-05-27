@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS silver_sales (
+    transaction_id STRING,
+    transaction_date DATE,
+    customer_id STRING,
+    product_id STRING,
+    quantity INT,
+    price DECIMAL(10, 2),
+    total_amount DECIMAL(10, 2),
+    region_id STRING
+);
+ 
+CREATE TABLE IF NOT EXISTS silver_products (
+    product_id STRING,
+    product_name STRING,
+    category STRING,
+    unit_price DECIMAL(10, 2)
+);
+ 
+CREATE TABLE IF NOT EXISTS silver_customers (
+    customer_sk INT GENERATED ALWAYS AS IDENTITY,
+    customer_id STRING,
+    customer_name STRING,
+    email STRING,
+    address STRING,
+    city STRING,
+    state STRING,
+    zip_code STRING,
+    start_date DATE,
+    end_date DATE,
+    is_current BOOLEAN
+);
+ 
+CREATE TABLE IF NOT EXISTS silver_regions (
+    region_id STRING,
+    region_name STRING,
+    country STRING
+);

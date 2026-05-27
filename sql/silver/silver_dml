@@ -1,0 +1,91 @@
+INSERT INTO silver_sales
+SELECT
+    transaction_id,
+    CAST(transaction_date AS DATE) AS transaction_date,
+    customer_id,
+    product_id,
+    CAST(quantity AS INT) AS quantity,
+    CAST(price AS DECIMAL(10, 2)) AS price,
+    CAST(quantity AS INT) * CAST(price AS DECIMAL(10, 2)) AS total_amount,
+    region_id
+FROM bronze_sales_raw
+ON CONFLICT (transaction_id) DO UPDATE SET
+    transaction_date = EXCLUDED.transaction_date,
+    customer_id = EXCLUDED.customer_id,
+    product_id = EXCLUDED.product_id,
+    quantity = EXCLUDED.quantity,
+    price = EXCLUDED.price,
+    total_amount = EXCLUDED.total_amount,
+    region_id = EXCLUDED.region_id;
+ 
+-- Ingest and transform product data
+INSERT INTO silver_products
+SELECT
+    product_id,
+    product_name,
+    category,
+    CAST(unit_price AS DECIMAL(10, 2)) AS unit_price
+FROM bronze_products_raw
+ON CONFLICT (product_id) DO UPDATE SET
+    product_name = EXCLUDED.product_name,
+    category = EXCLUDED.category,
+    unit_price = EXCLUDED.unit_price;
+ 
+-- Ingest and transform region data
+INSERT INTO silver_regions
+SELECT
+    region_id,
+    region_name,
+    country
+FROM bronze_regions_raw
+ON CONFLICT (region_id) DO UPDATE SET
+    region_name = EXCLUDED.region_name,
+    country = EXCLUDED.country;
+ 
+-- SCD Type 2 for Customers
+MERGE INTO silver_customers AS target
+USING (
+    SELECT
+        customer_id,
+        customer_name,
+        email,
+        address,
+        city,
+        state,
+        zip_code
+    FROM bronze_customers_raw
+) AS source
+ON target.customer_id = source.customer_id AND target.is_current = TRUE
+WHEN MATCHED AND (
+    target.customer_name <> source.customer_name OR
+    target.email <> source.email OR
+    target.address <> source.address OR
+    target.city <> source.city OR
+    target.state <> source.state OR
+    target.zip_code <> source.zip_code
+) THEN UPDATE SET
+    target.is_current = FALSE,
+    target.end_date = CURRENT_DATE()
+WHEN NOT MATCHED THEN INSERT (
+    customer_id,
+    customer_name,
+    email,
+    address,
+    city,
+    state,
+    zip_code,
+    start_date,
+    end_date,
+    is_current
+) VALUES (
+    source.customer_id,
+    source.customer_name,
+    source.email,
+    source.address,
+    source.city,
+    source.state,
+    source.zip_code,
+    CURRENT_DATE(),
+    NULL,
+    TRUE
+);

@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS fact_sales (
+    date_key INT,
+    product_key INT,
+    customer_key INT,
+    region_key INT,
+    transaction_id STRING,
+    quantity_sold INT,
+    total_revenue DECIMAL(10, 2),
+    PRIMARY KEY (date_key, product_key, customer_key, region_key),
+    FOREIGN KEY (date_key) REFERENCES dim_date(date_key),
+    FOREIGN KEY (product_key) REFERENCES dim_product(product_key),
+    FOREIGN KEY (customer_key) REFERENCES dim_customer(customer_key),
+    FOREIGN KEY (region_key) REFERENCES dim_region(region_key)
+);

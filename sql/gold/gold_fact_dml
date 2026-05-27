@@ -1,0 +1,19 @@
+INSERT INTO fact_sales (date_key, product_key, customer_key, region_key, transaction_id, quantity_sold, total_revenue)
+SELECT
+    dd.date_key,
+    dp.product_key,
+    dc.customer_key,
+    dr.region_key,
+    ss.transaction_id,
+    ss.quantity,
+    ss.total_amount
+FROM silver_sales ss
+JOIN dim_date dd ON ss.transaction_date = dd.full_date
+JOIN dim_product dp ON ss.product_id = dp.product_id
+JOIN dim_customer dc ON ss.customer_id = dc.customer_id AND ss.transaction_date BETWEEN dc.start_date AND COALESCE(dc.end_date, CURRENT_DATE())
+JOIN dim_region dr ON ss.region_id = dr.region_id
+ON CONFLICT (date_key, product_key, customer_key, region_key) DO UPDATE SET
+    transaction_id = EXCLUDED.transaction_id,
+    quantity_sold = EXCLUDED.quantity_sold,
+    total_revenue = EXCLUDED.total_revenue;
+
