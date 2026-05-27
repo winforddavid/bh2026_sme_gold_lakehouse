@@ -135,11 +135,17 @@ Plain Text
 
 SQL
    bronze      # Raw table DDL and sample ingestion
+   \
    silver      # Cleaning logic and SCD Type 2 implementation
+   \
    gold        # Star Schema DDL, DML, and Reporting Queries
+   \
    automation   # Production-ready Workflow scripts
+   \
 Diagrams        # Mermaid source and rendered images
+\
 Docs            # Detailed design and deployment guides
+\
 readme.md      # Project overview and documentation
 
 
