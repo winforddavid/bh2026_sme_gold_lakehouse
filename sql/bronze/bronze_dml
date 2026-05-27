@@ -1,0 +1,22 @@
+INSERT INTO bronze_sales_raw VALUES
+(\'T001\', \'2023-01-01\', \'C001\', \'P001\', \'2\', \'10.50\', \'R001\'),
+(\'T002\', \'2023-01-01\', \'C002\', \'P002\', \'1\', \'25.00\', \'R002\'),
+(\'T003\', \'2023-01-02\', \'C001\', \'P003\', \'3\', \'5.25\', \'R001\'),
+(\'T004\', \'2023-02-01\', \'C003\', \'P001\', \'1\', \'10.50\', \'R003\'),
+(\'T005\', \'2023-02-05\', \'C002\', \'P004\', \'2\', \'15.00\', \'R002\');
+ 
+INSERT INTO bronze_products_raw VALUES
+(\'P001\', \'Laptop\', \'Electronics\', \'10.50\'),
+(\'P002\', \'Mouse\', \'Electronics\', \'25.00\'),
+(\'P003\', \'Keyboard\', \'Electronics\', \'5.25\'),
+(\'P004\', \'Monitor\', \'Electronics\', \'15.00\');
+ 
+INSERT INTO bronze_customers_raw VALUES
+(\'C001\', \'Alice Smith\', \'alice@example.com\', \'123 Main St\', \'Anytown\', \'CA\', \'90210\'),
+(\'C002\', \'Bob Johnson\', \'bob@example.com\', \'456 Oak Ave\', \'Otherville\', \'NY\', \'10001\'),
+(\'C003\', \'Charlie Brown\', \'charlie@example.com\', \'789 Pine Ln\', \'Somewhere\', \'TX\', \'75001\');
+ 
+INSERT INTO bronze_regions_raw VALUES
+(\'R001\', \'West\', \'USA\'),
+(\'R002\', \'East\', \'USA\'),
+(\'R003\', \'Central\', \'USA\');

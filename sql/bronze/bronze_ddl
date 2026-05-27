@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS bronze_sales_raw (
+    transaction_id STRING,
+    transaction_date STRING,
+    customer_id STRING,
+    product_id STRING,
+    quantity STRING,
+    price STRING,
+    region_id STRING
+);
+ 
+CREATE TABLE IF NOT EXISTS bronze_products_raw (
+    product_id STRING,
+    product_name STRING,
+    category STRING,
+    unit_price STRING
+);
+ 
+CREATE TABLE IF NOT EXISTS bronze_customers_raw (
+    customer_id STRING,
+    customer_name STRING,
+    email STRING,
+    address STRING,
+    city STRING,
+    state STRING,
+    zip_code STRING
+);
+ 
+CREATE TABLE IF NOT EXISTS bronze_regions_raw (
+    region_id STRING,
+    region_name STRING,
+    country STRING
+);

@@ -1,0 +1,64 @@
+INSERT INTO dim_date (date_key, full_date, day_of_week, day_name, day_of_month, day_of_year, week_of_year, month, month_name, quarter, year)
+SELECT
+    CAST(DATE_FORMAT(date, \'yyyyMMdd\') AS INT) AS date_key,
+    date AS full_date,
+    DAYOFWEEK(date) AS day_of_week,
+    DAYNAME(date) AS day_name,
+    DAYOFMONTH(date) AS day_of_month,
+    DAYOFYEAR(date) AS day_of_year,
+    WEEKOFYEAR(date) AS week_of_year,
+    MONTH(date) AS month,
+    MONTHNAME(date) AS month_name,
+    QUARTER(date) AS quarter,
+    YEAR(date) AS year
+FROM (
+    SELECT explode(SEQUENCE(CAST(\'2023-01-01\' AS DATE), CAST(\'2023-12-31\' AS DATE), INTERVAL 1 DAY)) AS date
+);
+ 
+-- Populate dim_product
+INSERT INTO dim_product (product_id, product_name, category, unit_price)
+SELECT
+    product_id,
+    product_name,
+    category,
+    unit_price
+FROM silver_products
+ON CONFLICT (product_id) DO UPDATE SET
+    product_name = EXCLUDED.product_name,
+    category = EXCLUDED.category,
+    unit_price = EXCLUDED.unit_price;
+ 
+-- Populate dim_customer (SCD Type 2)
+INSERT INTO dim_customer (customer_id, customer_name, email, address, city, state, zip_code, start_date, end_date, is_current)
+SELECT
+    customer_id,
+    customer_name,
+    email,
+    address,
+    city,
+    state,
+    zip_code,
+    start_date,
+    end_date,
+    is_current
+FROM silver_customers
+ON CONFLICT (customer_id, start_date) DO UPDATE SET -- Assuming (customer_id, start_date) as unique key for SCD
+    customer_name = EXCLUDED.customer_name,
+    email = EXCLUDED.email,
+    address = EXCLUDED.address,
+    city = EXCLUDED.city,
+    state = EXCLUDED.state,
+    zip_code = EXCLUDED.zip_code,
+    end_date = EXCLUDED.end_date,
+    is_current = EXCLUDED.is_current;
+ 
+-- Populate dim_region
+INSERT INTO dim_region (region_id, region_name, country)
+SELECT
+    region_id,
+    region_name,
+    country
+FROM silver_regions
+ON CONFLICT (region_id) DO UPDATE SET
+    region_name = EXCLUDED.region_name,
+    country = EXCLUDED.country;
