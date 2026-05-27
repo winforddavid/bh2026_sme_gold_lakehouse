@@ -133,26 +133,14 @@ Geographical Mapping: Interactive regional revenue maps.
 Plain Text
 
 
-── sql/
-   ── bronze/          # Raw table DDL and sample ingestion
-   ── silver/          # Cleaning logic and SCD Type 2 implementation
-   ── gold/            # Star Schema DDL, DML, and Reporting Queries
-   ── automation/      # Production-ready Workflow scripts
-── diagrams/            # Mermaid source and rendered images
-── docs/                # Detailed design and deployment guides
-── README.md            # Project overview and documentation
-
-├── sql/
-│   ├── bronze/          # Raw table DDL and sample ingestion
-│   ├── silver/          # Cleaning logic and SCD Type 2 implementation
-│   ├── gold/            # Star Schema DDL, DML, and Reporting Queries
-│   └── automation/      # Production-ready Workflow scripts
-├── diagrams/            # Mermaid source and rendered images
-├── docs/                # Detailed design and deployment guides
-└── README.md            # Project overview and documentation
-
-
-
+SQL
+   bronze      # Raw table DDL and sample ingestion
+   silver      # Cleaning logic and SCD Type 2 implementation
+   gold        # Star Schema DDL, DML, and Reporting Queries
+   automation   # Production-ready Workflow scripts
+Diagrams        # Mermaid source and rendered images
+Docs            # Detailed design and deployment guides
+readme.md      # Project overview and documentation
 
 
 
