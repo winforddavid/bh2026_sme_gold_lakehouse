@@ -2,7 +2,7 @@
 
 This repository contains a complete, end-to-end Data Engineering portfolio project demonstrating a robust Small to Medium Enterprise (SME) data warehouse solution. Built on the Databricks Lakehouse Platform, the project implements the Medallion Architecture to transform raw data into a curated Gold Layer optimized for high-performance business intelligence.
 
-🚀## Project Overview
+## 🚀 Project Overview
 
 The project addresses a realistic business scenario where an executive team requires deep insights into sales performance, including monthly revenue trends, top-selling products, regional performance, and customer loyalty (repeat customers).
 
@@ -26,7 +26,7 @@ DirectQuery Integration: Seamless connection to PowerBI for live reporting.
 
 
 
-🏗️ Architecture & Data Flow
+## 🏗️ Architecture & Data Flow
 
 The data follows a structured journey from source systems to the final consumption layer. This ensures data quality, governance, and reliability.
 
@@ -39,7 +39,7 @@ Source
 
 
 
-📊 Data Modeling: The Gold Layer
+## 📊 Data Modeling: The Gold Layer
 
 The Gold layer is designed as a Star Schema, the industry standard for analytical reporting. This structure simplifies complex queries and maximizes performance.
 
@@ -51,7 +51,7 @@ Source
 
 
 
-Table Definitions
+## Table Definitions
 
 Table Type
 Table Name
@@ -78,7 +78,7 @@ Geographical attributes for regional sales analysis.
 
 
 
-🛠️ Implementation Details
+## 🛠️ Implementation Details
 
 1. Slowly Changing Dimensions (SCD Type 2)
 
@@ -107,7 +107,7 @@ Repeat Customer Identification
 
 
 
-📈 PowerBI Integration
+## 📈 PowerBI Integration
 
 The Gold layer is served via a Databricks SQL Warehouse and connected to PowerBI using DirectQuery. This ensures that the dashboard always reflects the most current data without the need for manual refreshes.
 
@@ -128,7 +128,7 @@ Geographical Mapping: Interactive regional revenue maps.
 
 
 
-📂 Repository Structure
+## 📂 Repository Structure
 
 Plain Text
 
@@ -150,7 +150,7 @@ readme.md      # Project overview and documentation
 
 
 
-📝 Conclusion
+## 📝 Conclusion
 
 This project serves as a comprehensive template for building enterprise-grade data warehouses on Databricks. By following the Medallion Architecture and implementing robust data modeling practices, we provide a scalable foundation for actionable business intelligence.
 
