@@ -2,11 +2,11 @@
 
 This repository contains a complete, end-to-end Data Engineering portfolio project demonstrating a robust Small to Medium Enterprise (SME) data warehouse solution. Built on the Databricks Lakehouse Platform, the project implements the Medallion Architecture to transform raw data into a curated Gold Layer optimized for high-performance business intelligence.
 
-🚀 Project Overview
+🚀## Project Overview
 
 The project addresses a realistic business scenario where an executive team requires deep insights into sales performance, including monthly revenue trends, top-selling products, regional performance, and customer loyalty (repeat customers).
 
-Key Features:
+**Key Features:**
 
 •
 Medallion Architecture: Logical data separation into Bronze (Raw), Silver (Cleaned/Conformed), and Gold (Curated) layers.
