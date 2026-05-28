@@ -30,9 +30,68 @@ DirectQuery Integration: Seamless connection to PowerBI for live reporting.
 
 The data follows a structured journey from source systems to the final consumption layer. This ensures data quality, governance, and reliability.
 
-mermaid
+graph LR
+    subgraph "Source Systems"
+        S1[Sales DB]
+        S2[Product Catalog]
+        S3[CRM System]
+        S4[Regional ERP]
+    end
 
-Source
+    subgraph "Bronze Layer (Raw)"
+        B1[(bronze_sales_raw)]
+        B2[(bronze_products_raw)]
+        B3[(bronze_customers_raw)]
+        B4[(bronze_regions_raw)]
+    end
+
+    subgraph "Silver Layer (Cleaned & Conformed)"
+        SL1[(silver_sales)]
+        SL2[(silver_products)]
+        SL3[(silver_customers - SCD 2)]
+        SL4[(silver_regions)]
+    end
+
+    subgraph "Gold Layer (Business Curated)"
+        G1[(fact_sales)]
+        G2[(dim_date)]
+        G3[(dim_product)]
+        G4[(dim_customer)]
+        G5[(dim_region)]
+    end
+
+    subgraph "Consumption Layer"
+        R1[PowerBI Dashboard]
+        R2[Databricks SQL Analytics]
+        R3[Executive Reports]
+    end
+
+    %% Flow connections
+    S1 --> B1
+    S2 --> B2
+    S3 --> B3
+    S4 --> B4
+
+    B1 -- "Clean/Cast" --> SL1
+    B2 -- "Standardize" --> SL2
+    B3 -- "SCD Type 2 Logic" --> SL3
+    B4 -- "Standardize" --> SL4
+
+    SL1 -- "Join/Aggregate" --> G1
+    SL2 --> G3
+    SL3 --> G4
+    SL4 --> G5
+    
+    %% Date dimension population
+    D_GEN[Date Generator] --> G2
+
+    G1 --> R1
+    G1 --> R2
+    G1 --> R3
+    G2 & G3 & G4 & G5 --> R1
+    G2 & G3 & G4 & G5 --> R2
+    G2 & G3 & G4 & G5 --> R3
+
 
 
 
